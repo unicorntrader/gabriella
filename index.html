@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>remotely — Start an Online Service in 5 Steps</title>
-  <meta name="description" content="A simple one‑page helper for creators starting from zero. Plain language. No jargon. Answer 5 blocks, copy your plan." />
+  <meta name="description" content="A simple one‑page helper for creators starting from zero. Plain language. No jargon. Answer the parts, copy your plan." />
   <style>
     :root{--bg:#faf9f6;--ink:#0b1220;--muted:#5f6675;--navy:#1f2a44;--tan:#d9c3a3;--card:#ffffff;--ring:#d9c3a34d}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial}
@@ -56,44 +56,129 @@
 
     <section class="card">
       <h1>Start an online service in <em>5 simple parts</em></h1>
-      <p class="mini">Plain language. No jargon. Fill the boxes. At the end, click <b>Copy My Plan</b>. Everything you need — including the instruction for ChatGPT — will be copied for you.</p>
+      <p class="mini">Plain language. No jargon. Fill the boxes. At the end, click <b>Copy My Plan</b>. Everything — including the instruction for ChatGPT — is copied for you.</p>
       <div class="tip"><h4>How this page helps</h4>
         <div class="mini">We’ll go from: <b>who you are</b> → <b>who you help</b> → <b>what you sell first</b> → <b>how people find and hire you</b> → <b>the next 2 weeks</b>. Your answers save in your browser. You can skip anything and decide later.</div>
       </div>
     </section>
 
-    <!-- Parts (same as before, trimmed here for brevity) -->
+    <!-- PART 1: YOU -->
     <section class="card block">
       <h2>Part 1 — You</h2>
-      <textarea id="skills" placeholder="Your skills & experience"></textarea>
+      <p class="mini muted">What you bring to the table.</p>
+      <div class="row">
+        <div>
+          <label><b>Your skills & experience</b></label>
+          <div class="mini">Examples: “5 years as a nutrition coach”, “CFA charterholder”, “UX designer who’s shipped 3 apps”. <span class="info" data-t="#p1a">What this means</span></div>
+          <div id="p1a" class="tip hide"><h4>What this means</h4><div class="mini">Write the concrete things you can do for someone. Certifications, tools you use, wins you’ve had. This becomes your proof and pricing power.</div></div>
+          <textarea id="skills" placeholder="List concrete skills, tools, and wins…"></textarea>
+        </div>
+        <div>
+          <label><b>Topics you can talk about weekly</b></label>
+          <div class="mini">Examples: “capsule wardrobes”, “AI for teachers”, “meal‑prep for shift workers”.</div>
+          <textarea id="topics" placeholder="Pick 2–5 themes you won’t get bored of…"></textarea>
+        </div>
+      </div>
     </section>
+
+    <!-- PART 2: WHO YOU HELP -->
     <section class="card block">
       <h2>Part 2 — Who you help</h2>
-      <textarea id="audience" placeholder="Your ideal client"></textarea>
+      <p class="mini muted">Describe a real person with a real problem.</p>
+      <div class="row">
+        <div>
+          <label><b>Your ideal client</b></label>
+          <div class="mini">Example: “Tech women 25–35 who travel for work and want a simple work wardrobe.”</div>
+          <textarea id="audience" placeholder="Who are they? What job/life context?"></textarea>
+        </div>
+        <div>
+          <label><b>Their pressing problem</b></label>
+          <div class="mini">Example: “Standing in front of a closet, late for work, nothing fits together.”</div>
+          <textarea id="problem" placeholder="What’s frustrating or costly for them right now?"></textarea>
+        </div>
+      </div>
+      <div>
+        <label><b>What would you call yourself today?</b></label>
+        <div class="mini">Write whatever you’d naturally say (e.g., “fashion blogger”). ChatGPT will help you sharpen it later.</div>
+        <textarea id="positioning" placeholder="Your current label…"></textarea>
+      </div>
     </section>
+
+    <!-- PART 3: WHAT YOU SELL FIRST -->
     <section class="card block">
       <h2>Part 3 — What you sell first</h2>
-      <textarea id="offer" placeholder="Your starter offer"></textarea>
+      <p class="mini muted">Start simple. Prove demand. Learn fast.</p>
+      <div class="row">
+        <div>
+          <label><b>Starter offer</b></label>
+          <div class="mini">Examples: 1:1 consultation, audit, template, checklist, quick video review.</div>
+          <textarea id="offer" placeholder="Describe the smallest useful thing you can sell in 1–2 weeks…"></textarea>
+        </div>
+        <div>
+          <label><b>Price & capacity</b></label>
+          <div class="mini">Example: “$149 for a 60‑min audit. 6 slots per month.”</div>
+          <textarea id="pricecap" placeholder="Entry price and how many you can handle…"></textarea>
+        </div>
+      </div>
+      <div class="tip"><h4>Why a small offer first?</h4><div class="mini">It’s faster to ship. You learn what people actually want. Then you can build bigger: a course, a membership, or sponsorships.</div></div>
     </section>
+
+    <!-- PART 4: HOW PEOPLE FIND & HIRE YOU (NO JARGON) -->
     <section class="card block">
-      <h2>Part 4 — How people find & hire you</h2>
-      <textarea id="path" placeholder="Your simple path"></textarea>
+      <h2>Part 4 — How people find and hire you</h2>
+      <p class="mini muted">Think of it as a simple path, not “marketing.”</p>
+      <div class="row">
+        <div>
+          <label><b>Where you’ll show up</b></label>
+          <div class="mini">Pick one main place + one backup. Examples: YouTube + email, Instagram + Calendly, LinkedIn + newsletter.</div>
+          <textarea id="channels" placeholder="Your main place + backup…"></textarea>
+        </div>
+        <div>
+          <label><b>Free thing that attracts the right people</b></label>
+          <div class="mini">Examples: checklist, mini‑guide, template, short email course.</div>
+          <textarea id="lead" placeholder="What will you give away to earn trust and collect emails?"></textarea>
+        </div>
+      </div>
+      <div>
+        <label><b>Your simple path</b></label>
+        <div class="mini">Fill the blanks: <em>People find me via</em> ______ → <em>they get to know me by</em> ______ → <em>they hire/buy when I invite them to</em> ______.</div>
+        <textarea id="path" placeholder="Write your sentence here…"></textarea>
+      </div>
     </section>
+
+    <!-- PART 5: NEXT TWO WEEKS -->
     <section class="card block">
       <h2>Part 5 — The next two weeks</h2>
-      <textarea id="w1" placeholder="Week 1 small actions"></textarea>
-      <textarea id="w2" placeholder="Week 2 small actions"></textarea>
+      <p class="mini muted">Keep it small and winnable.</p>
+      <div class="row">
+        <div>
+          <label><b>Week 1 (3 small actions)</b></label>
+          <div class="mini">Examples: “Draft offer page”, “Record 1 intro video”, “Set up calendar link”.</div>
+          <textarea id="w1" placeholder="Three checkboxes you can tick in 7 days…"></textarea>
+        </div>
+        <div>
+          <label><b>Week 2 (3 small actions)</b></label>
+          <div class="mini">Examples: “Publish 1 video/post”, “Email 10 warm contacts”, “Ask for 2 testimonials”.</div>
+          <textarea id="w2" placeholder="Three more for next week…"></textarea>
+        </div>
+      </div>
+      <div>
+        <label><b>Tools you already use</b></label>
+        <div class="mini">Payments, email, calendar, website. Keep it simple.</div>
+        <textarea id="tools" placeholder="Stripe / Gumroad, Gmail or newsletter, Calendly, simple site"></textarea>
+      </div>
     </section>
 
     <!-- FINISH -->
     <section class="card">
       <h2>Finish</h2>
-      <p class="mini muted">Click the button to copy your answers. The copied text already includes the instruction for ChatGPT, so you can just paste it in.</p>
+      <p class="mini muted">Click the button to copy your answers with friendly headings. The copied text already includes the instruction for ChatGPT.</p>
       <div class="toolbar">
         <button class="btn" id="copy">Copy My Plan</button>
         <button class="btn secondary" id="reset">Reset All</button>
       </div>
       <div class="mini muted" id="status" style="margin-top:8px"></div>
+      <div class="tip" style="margin-top:12px"><h4>What happens next?</h4><div class="mini">ChatGPT turns this into tasks, a posting rhythm, and a simple invite-to-buy message. It will ask follow‑ups where you left blanks.</div></div>
     </section>
 
     <section class="footer">
@@ -104,32 +189,72 @@
   </div>
 
   <script>
-    const KEY='remotely_v3';
-    const ids=['skills','audience','offer','path','w1','w2'];
+    const KEY='remotely_v2';
+    const ids=['skills','topics','audience','problem','positioning','offer','pricecap','channels','lead','path','w1','w2','tools'];
+
     const $=s=>document.querySelector(s);
     const save=()=>{const o={}; ids.forEach(id=>o[id]=$('#'+id)?.value||''); localStorage.setItem(KEY, JSON.stringify(o));};
-    const load=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}');}catch{return {};}};
-    const apply=()=>{const o=load(); ids.forEach(id=>{$('#'+id).value=o[id]||''});};
+    const load=()=>{try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch{ return {}; }};
+    const apply=()=>{const o=load(); ids.forEach(id=>{ if($('#'+id)) $('#'+id).value = o[id]||''; }); };
 
+    // Build export in plain, friendly Markdown + baked-in instruction
     const build=()=>{
       const o=load();
       const now=new Date().toLocaleString();
-      let md=`# Remotely — My Starter Plan\nGenerated: ${now}\n`;
-      md+=`\n## Skills & experience\n${o.skills||'[blank]'}`;
-      md+=`\n## Who I help\n${o.audience||'[blank]'}`;
-      md+=`\n## Starter offer\n${o.offer||'[blank]'}`;
-      md+=`\n## Simple path (find me → know me → hire/buy)\n${o.path||'[blank]'}`;
-      md+=`\n## Week 1 actions\n${o.w1||'[blank]'}`;
-      md+=`\n## Week 2 actions\n${o.w2||'[blank]'}`;
-      md+=`\n---\n**Next step:** Paste this into ChatGPT. It will turn it into a simple plan, weekly posting rhythm, and an invite‑to‑buy script. It will also ask smart follow‑ups where you left blanks.`;
+      const S=(label, val)=>`
+## ${label}
+${(val||'').trim() || '[left blank — discuss with me]'}
+`;
+      let md=`# Remotely — My Starter Plan
+Generated: ${now}
+`;
+      md+=S('You — skills & experience', o.skills);
+      md+=S('Topics I can talk about weekly', o.topics);
+      md+=S('Who I help (ideal client)', o.audience);
+      md+=S('Their pressing problem', o.problem);
+      md+=S('What I call myself today', o.positioning);
+      md+=S('Starter offer', o.offer);
+      md+=S('Price & capacity', o.pricecap);
+      md+=S('Where I will show up', o.channels);
+      md+=S('Free thing to attract the right people', o.lead);
+      md+=S('My simple path (find me → know me → hire/buy)', o.path);
+      md+=S('Week 1 (3 small actions)', o.w1);
+      md+=S('Week 2 (3 small actions)', o.w2);
+      md+=S('Tools I already use', o.tools);
+      md+=`
+---
+**Next step (already included):** Turn this into a practical 2‑week task list, a weekly posting rhythm, and a simple “invite to hire/buy” message. Ask me smart follow‑ups wherever I left blanks.`;
       return md;
     };
 
-    document.addEventListener('input',(e)=>{if(e.target.matches('textarea')) save();});
-    document.addEventListener('keydown',(e)=>{if(e.target.matches('textarea')&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();const arr=[...document.querySelectorAll('textarea')];const i=arr.indexOf(e.target);(arr[i+1]||arr[i]).focus();}});
+    // Info toggles
+    document.addEventListener('click',(e)=>{
+      const t=e.target.closest('.info');
+      if(t){ const sel=t.getAttribute('data-t'); const box=document.querySelector(sel); if(box){ box.classList.toggle('hide'); } }
+    });
 
-    $('#copy').addEventListener('click',async()=>{const md=build();try{await navigator.clipboard.writeText(md);$('#status').textContent='Copied. Paste into ChatGPT.';}catch(err){$('#status').textContent='Could not auto‑copy.';const w=window.open('', '_blank');w.document.write('<pre>'+md.replace(/[&<>]/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[s]))+'</pre>');w.document.close();}setTimeout(()=>$('#status').textContent='',4000);});
-    $('#reset').addEventListener('click',()=>{if(confirm('Reset all answers?')){localStorage.removeItem(KEY);apply();}});
+    document.addEventListener('input',(e)=>{ if(e.target.matches('textarea,input')) save(); });
+
+    // Enter → next field (Shift+Enter = newline)
+    document.addEventListener('keydown',(e)=>{
+      if(e.target.matches('textarea') && e.key==='Enter' && !e.shiftKey){
+        e.preventDefault();
+        const arr=[...document.querySelectorAll('textarea')];
+        const i=arr.indexOf(e.target); (arr[i+1]||arr[i]).focus();
+      }
+    });
+
+    $('#copy').addEventListener('click', async ()=>{
+      const md=build();
+      try{ await navigator.clipboard.writeText(md); $('#status').textContent='Copied. Paste into ChatGPT.'; }
+      catch(err){
+        $('#status').textContent='Could not auto‑copy. A new tab will open — copy from there.';
+        const w=window.open('', '_blank'); w.document.write('<pre>'+md.replace(/[&<>]/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[s]))+'</pre>'); w.document.close();
+      }
+      setTimeout(()=>$('#status').textContent='',4000);
+    });
+
+    $('#reset').addEventListener('click',()=>{ if(confirm('Reset all answers?')){ localStorage.removeItem(KEY); apply(); }});
 
     apply();
   </script>
