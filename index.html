@@ -58,7 +58,7 @@
       <h1>Start an online service in <em>5 simple parts</em></h1>
       <p class="mini">Plain language. No jargon. Fill the boxes. At the end, click <b>Copy My Plan</b>. Everything — including the instruction for ChatGPT — is copied for you.</p>
       <div class="tip"><h4>How this page helps</h4>
-        <div class="mini">We’ll go from: <b>who you are</b> → <b>who you help</b> → <b>what you sell first</b> → <b>how people find and hire you</b> → <b>the next 2 weeks</b>. Your answers save in your browser. You can skip anything and decide later.</div>
+        <div class="mini">We’ll go from: <b>who you are</b> → <b>who you help</b> → <b>what you sell first</b> → <b>how people might find you</b> → <b>the next 2 weeks</b>. Your answers save in your browser. You can skip anything and decide later.</div>
       </div>
     </section>
 
@@ -69,8 +69,7 @@
       <div class="row">
         <div>
           <label><b>Your skills & experience</b></label>
-          <div class="mini">Examples: “5 years as a nutrition coach”, “CFA charterholder”, “UX designer who’s shipped 3 apps”. <span class="info" data-t="#p1a">What this means</span></div>
-          <div id="p1a" class="tip hide"><h4>What this means</h4><div class="mini">Write the concrete things you can do for someone. Certifications, tools you use, wins you’ve had. This becomes your proof and pricing power.</div></div>
+          <div class="mini">Examples: “5 years as a nutrition coach”, “CFA charterholder”, “UX designer who’s shipped 3 apps”.</div>
           <textarea id="skills" placeholder="List concrete skills, tools, and wins…"></textarea>
         </div>
         <div>
@@ -123,26 +122,21 @@
       <div class="tip"><h4>Why a small offer first?</h4><div class="mini">It’s faster to ship. You learn what people actually want. Then you can build bigger: a course, a membership, or sponsorships.</div></div>
     </section>
 
-    <!-- PART 4: HOW PEOPLE FIND & HIRE YOU (NO JARGON) -->
+    <!-- PART 4: HOW PEOPLE MIGHT FIND YOU -->
     <section class="card block">
-      <h2>Part 4 — How people find and hire you</h2>
-      <p class="mini muted">Think of it as a simple path, not “marketing.”</p>
+      <h2>Part 4 — How people might find you</h2>
+      <p class="mini muted">Don’t overthink “marketing.” Just write what feels natural.</p>
       <div class="row">
         <div>
-          <label><b>Where you’ll show up</b></label>
+          <label><b>Where could you show up?</b></label>
           <div class="mini">Pick one main place + one backup. Examples: YouTube + email, Instagram + Calendly, LinkedIn + newsletter.</div>
           <textarea id="channels" placeholder="Your main place + backup…"></textarea>
         </div>
         <div>
-          <label><b>Free thing that attracts the right people</b></label>
+          <label><b>What free thing could you give away?</b></label>
           <div class="mini">Examples: checklist, mini‑guide, template, short email course.</div>
-          <textarea id="lead" placeholder="What will you give away to earn trust and collect emails?"></textarea>
+          <textarea id="lead" placeholder="Something small that earns trust…"></textarea>
         </div>
-      </div>
-      <div>
-        <label><b>Your simple path</b></label>
-        <div class="mini">Fill the blanks: <em>People find me via</em> ______ → <em>they get to know me by</em> ______ → <em>they hire/buy when I invite them to</em> ______.</div>
-        <textarea id="path" placeholder="Write your sentence here…"></textarea>
       </div>
     </section>
 
@@ -190,24 +184,18 @@
 
   <script>
     const KEY='remotely_v2';
-    const ids=['skills','topics','audience','problem','positioning','offer','pricecap','channels','lead','path','w1','w2','tools'];
+    const ids=['skills','topics','audience','problem','positioning','offer','pricecap','channels','lead','w1','w2','tools'];
 
     const $=s=>document.querySelector(s);
     const save=()=>{const o={}; ids.forEach(id=>o[id]=$('#'+id)?.value||''); localStorage.setItem(KEY, JSON.stringify(o));};
     const load=()=>{try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch{ return {}; }};
     const apply=()=>{const o=load(); ids.forEach(id=>{ if($('#'+id)) $('#'+id).value = o[id]||''; }); };
 
-    // Build export in plain, friendly Markdown + baked-in instruction
     const build=()=>{
       const o=load();
       const now=new Date().toLocaleString();
-      const S=(label, val)=>`
-## ${label}
-${(val||'').trim() || '[left blank — discuss with me]'}
-`;
-      let md=`# Remotely — My Starter Plan
-Generated: ${now}
-`;
+      const S=(label, val)=>`\n## ${label}\n${(val||'').trim() || '[left blank — discuss with me]'}\n`;
+      let md=`# Remotely — My Starter Plan\nGenerated: ${now}\n`;
       md+=S('You — skills & experience', o.skills);
       md+=S('Topics I can talk about weekly', o.topics);
       md+=S('Who I help (ideal client)', o.audience);
@@ -215,34 +203,17 @@ Generated: ${now}
       md+=S('What I call myself today', o.positioning);
       md+=S('Starter offer', o.offer);
       md+=S('Price & capacity', o.pricecap);
-      md+=S('Where I will show up', o.channels);
-      md+=S('Free thing to attract the right people', o.lead);
-      md+=S('My simple path (find me → know me → hire/buy)', o.path);
+      md+=S('Where I might show up', o.channels);
+      md+=S('Free thing I could give away', o.lead);
       md+=S('Week 1 (3 small actions)', o.w1);
       md+=S('Week 2 (3 small actions)', o.w2);
       md+=S('Tools I already use', o.tools);
-      md+=`
----
-**Next step (already included):** Turn this into a practical 2‑week task list, a weekly posting rhythm, and a simple “invite to hire/buy” message. Ask me smart follow‑ups wherever I left blanks.`;
+      md+=`\n---\n**Next step (already included):** Turn this into a practical 2‑week task list, a weekly posting rhythm, and a simple “invite to hire/buy” message. Ask me smart follow‑ups wherever I left blanks.`;
       return md;
     };
 
-    // Info toggles
-    document.addEventListener('click',(e)=>{
-      const t=e.target.closest('.info');
-      if(t){ const sel=t.getAttribute('data-t'); const box=document.querySelector(sel); if(box){ box.classList.toggle('hide'); } }
-    });
-
     document.addEventListener('input',(e)=>{ if(e.target.matches('textarea,input')) save(); });
-
-    // Enter → next field (Shift+Enter = newline)
-    document.addEventListener('keydown',(e)=>{
-      if(e.target.matches('textarea') && e.key==='Enter' && !e.shiftKey){
-        e.preventDefault();
-        const arr=[...document.querySelectorAll('textarea')];
-        const i=arr.indexOf(e.target); (arr[i+1]||arr[i]).focus();
-      }
-    });
+    document.addEventListener('keydown',(e)=>{ if(e.target.matches('textarea') && e.key==='Enter' && !e.shiftKey){ e.preventDefault(); const arr=[...document.querySelectorAll('textarea')]; const i=arr.indexOf(e.target); (arr[i+1]||arr[i]).focus(); }});
 
     $('#copy').addEventListener('click', async ()=>{
       const md=build();
