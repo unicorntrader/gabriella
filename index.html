@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>remotely — Creators Starting from Zero</title>
+  <meta name="description" content="A simple one‑page brief builder that helps creators turn skills into a remote business. Answer the questions, copy the brief, paste into ChatGPT." />
+  <style>
+    :root{
+      --bg:#faf9f6;           /* light neutral */
+      --ink:#0b1220;          /* near-black (navy-ish) */
+      --muted:#6b7280;        /* grey */
+      --navy:#1f2a44;         /* navy */
+      --tan:#d9c3a3;          /* tan */
+      --accent:#1f2a44;       /* using navy as primary accent */
+      --ring:#d9c3a3;         /* tan focus ring */
+      --card:#ffffff;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";}
+    .wrap{max-width:960px;margin:0 auto;padding:28px 16px 80px;}
+    header{position:sticky;top:0;background:linear-gradient(180deg, rgba(250,249,246,.98), rgba(250,249,246,.88));backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid rgba(0,0,0,0.04);z-index:8}
+    header .bar{max-width:960px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px}
+    .logo{width:14px;height:14px;border-radius:3px;background:var(--navy);position:relative;box-shadow:0 0 0 3px var(--tan) inset}
+    .title{font-weight:700;letter-spacing:.2px}
+    .pill{margin-left:auto;font-size:12px;color:var(--navy);background:rgba(31,42,68,0.06);border:1px solid rgba(31,42,68,0.12);padding:4px 8px;border-radius:999px}
+
+    .card{background:var(--card);border:1px solid rgba(0,0,0,0.06);border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,0.04);padding:18px}
+    .stack{display:grid;gap:14px}
+
+    h1{font-size:22px;margin:14px 0}
+    h2{font-size:18px;margin:10px 0}
+    p{line-height:1.5;color:var(--muted)}
+
+    .q{display:grid;gap:8px}
+    .qlabel{display:flex;align-items:center;gap:10px;font-weight:600}
+    .info{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:999px;background:var(--tan);color:var(--navy);font-weight:700;font-size:12px;cursor:pointer;user-select:none}
+    .info:hover{filter:brightness(.97)}
+    .hint{font-size:12px;color:var(--muted)}
+    textarea, input[type="text"], select{
+      width:100%;padding:12px 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.12);background:#fff;color:var(--ink);font-size:14px;line-height:1.4;resize:vertical;min-height:84px;outline:none;
+    }
+    textarea:focus, input:focus{box-shadow:0 0 0 3px var(--ring);border-color:var(--navy)}
+
+    .row{display:grid;gap:12px}
+    @media(min-width:720px){.row{grid-template-columns:1fr 1fr}}
+
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .btn{appearance:none;border:none;background:var(--navy);color:#fff;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer;transition:transform .02s ease;}
+    .btn:active{transform:translateY(1px)}
+    .btn.secondary{background:#fff;color:var(--navy);border:1px solid rgba(31,42,68,0.2)}
+    .btn.warn{background:#a83b2b}
+
+    .edu{background:linear-gradient(0deg, rgba(217,195,163,0.18), rgba(217,195,163,0.18));border:1px dashed var(--tan);border-radius:12px;padding:12px}
+    .edu h4{margin:0 0 6px 0;font-size:14px;color:var(--navy)}
+
+    .collapsible{display:none;margin-top:8px}
+    .qlabel .tag{color:#8a6b3d;background:rgba(217,195,163,0.22);border:1px solid rgba(217,195,163,0.5);padding:2px 6px;border-radius:8px;font-size:11px;font-weight:700}
+
+    .footer{margin-top:28px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f2efe8;border:1px solid #e6dfd2;border-bottom-width:2px;padding:1px 6px;border-radius:6px}
+
+    .mini{font-size:13px}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div class="logo" aria-hidden="true"></div>
+      <div class="title">remotely</div>
+      <div class="pill">Creators starting from zero</div>
+    </div>
+  </header>
+
+  <div class="wrap stack">
+    <section class="card">
+      <h1>Build your remote‑first business brief</h1>
+      <p class="mini">Answer the questions below. Click <strong>Copy Brief</strong> at the end and paste into ChatGPT. If you skip anything, ChatGPT will be prompted to ask you about it later.</p>
+      <div class="edu"><h4>How this works</h4>
+        <div class="mini">You’ll define your skills, audience, offer, content pillars, and a simple funnel. We save your answers locally (no servers, no tracking). Use <span class="kbd">Reset</span> anytime to clear.</div>
+      </div>
+    </section>
+
+    <form id="form" class="stack">
+      <!-- Questions stack -->
+    </form>
+
+    <section class="card">
+      <h2>Finish</h2>
+      <div class="mini muted">When you’re done, click the button below. This will generate a clean brief + a ready‑made ChatGPT instruction block.</div>
+      <div class="toolbar">
+        <button type="button" id="copyBtn" class="btn">Copy Brief</button>
+        <button type="button" id="resetBtn" class="btn secondary">Reset All</button>
+      </div>
+      <div id="copyStatus" class="mini muted" style="margin-top:8px"></div>
+      <div class="edu" style="margin-top:12px">
+        <h4>Tip</h4>
+        <div class="mini">Paste into ChatGPT and say: <em>“Use this to design my 90‑day plan, content calendar, offer stack, and a simple sales funnel. Ask targeted follow‑ups for any section marked [SKIPPED].”</em></div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div>Made with <span aria-hidden="true">☕</span> for remote creators.</div>
+      <div class="mini">Press <span class="kbd">Enter</span> to jump to the next field. Use <span class="kbd">Shift+Enter</span> for a new line.</div>
+    </section>
+  </div>
+
+  <script>
+  // ---------- Config: Questions ----------
+  const QUESTIONS = [
+    {
+      id: 'skills',
+      label: 'What unique talents / skills / credentials do you have?',
+      tag: 'Assets',
+      hint: 'E.g., “5 years as a nutrition coach”, “CFA charterholder”, “Python + data viz”, “Award‑winning photographer”.',
+      edu: 'List hard skills (certifications, tools) and soft skills (communication, teaching). Credibility fuels faster trust and higher pricing.'
+    },
+    {
+      id: 'topics',
+      label: 'What topics could you talk about every week for a year?',
+      tag: 'Energy',
+      hint: 'Pick things you won’t get bored of: e.g., “capsule wardrobes”, “AI productivity”, “lean cooking for busy parents”.',
+      edu: 'Consistency beats intensity. If you can sustain a topic weekly, it’s a good pillar for audience building.'
+    },
+    {
+      id: 'audience',
+      label: 'Who is your ideal client/follower? What problem are they trying to solve?',
+      tag: 'ICP',
+      hint: 'E.g., “Tech women 25–35 who want a minimalist wardrobe for work travel.”',
+      edu: 'Define a specific person with a specific problem. Niching down makes content sharper and offers easier to sell.'
+    },
+    {
+      id: 'offers',
+      label: 'What could you sell first?',
+      tag: 'Offer v1',
+      hint: 'Examples: 1:1 consultations, audits, templates, newsletter, cohort course, evergreen course, community, sponsorships/ads.',
+      edu: 'Start simple (1:1 or a template). Prove demand, get testimonials, then ladder up to scalable products.'
+    },
+    {
+      id: 'proof',
+      label: 'What proof can you show? (results, testimonials, portfolio)',
+      tag: 'Trust',
+      hint: 'Links or summaries of wins, case studies, before/after outcomes.',
+      edu: 'Social proof lowers risk for buyers. Even small wins count—document them.'
+    },
+    {
+      id: 'pillars',
+      label: 'List 3–5 content pillars you’ll publish on regularly.',
+      tag: 'Content',
+      hint: 'E.g., “Wardrobe systems”, “Outfit formulas”, “Travel packing”, “Workwear reviews”.',
+      edu: 'Pillars are repeatable themes that attract the right audience and make creation easier.'
+    },
+    {
+      id: 'platforms',
+      label: 'Primary platform + secondary platform',
+      tag: 'Channels',
+      hint: 'Pick 1 primary (YouTube, IG, X, LinkedIn, Substack, TikTok) and 1 secondary.',
+      edu: 'Focus wins. One primary channel to grow, a secondary for repurposing.'
+    },
+    {
+      id: 'leadmagnet',
+      label: 'What lead magnet could attract the right people?',
+      tag: 'Top of Funnel',
+      hint: 'Checklist, mini‑guide, template, calculator, or a 5‑day email sprint.',
+      edu: 'Lead magnets swap value for email. This builds owned distribution you control.'
+    },
+    {
+      id: 'funnel',
+      label: 'Sketch your simple funnel (Entry → Nurture → Offer).',
+      tag: 'Funnel',
+      hint: 'E.g., “YouTube video → email course → 1:1 style audit”.',
+      edu: 'A funnel is just a sequence: attract with content, capture via lead magnet, nurture via email, convert with an offer.'
+    },
+    {
+      id: 'pricing',
+      label: 'Pricing v1: entry price, core offer, premium',
+      tag: 'Monetisation',
+      hint: 'E.g., $49 template, $299 audit, $1,200 coaching package.',
+      edu: 'Price ladders meet buyers at different readiness levels and increase LTV.'
+    },
+    {
+      id: 'capacity',
+      label: 'Capacity: how many 1:1 slots or seats per month?',
+      tag: 'Ops',
+      hint: 'E.g., “8 audits/month” or “20 cohort seats/quarter”.',
+      edu: 'Capacity constraints help you set realistic goals and scarcity‑based marketing.'
+    },
+    {
+      id: 'positioning',
+      label: 'What would you currently call yourself?',
+      tag: 'Positioning',
+      hint: 'If you’d say “fashion blogger,” write that here—we’ll refine later in ChatGPT.',
+      edu: 'Titles shape perception. We’ll prompt ChatGPT to refine this into a sharper market position.'
+    },
+    {
+      id: 'difference',
+      label: 'What makes your take different?',
+      tag: 'Angle',
+      hint: 'E.g., “System‑first styling for busy pros; capsule > trends.”',
+      edu: 'Differentiation is why someone chooses you over thousands of similar creators.'
+    },
+    {
+      id: 'cadence',
+      label: 'What can you commit to weekly? (content cadence)',
+      tag: 'Consistency',
+      hint: 'E.g., “1 YouTube/wk + 3 shorts + 1 email”.',
+      edu: 'Small and consistent beats big and sporadic. Pick a cadence you’ll keep.'
+    },
+    {
+      id: 'tools',
+      label: 'What tools do you already use? (payments, email, calendar, site)',
+      tag: 'Stack',
+      hint: 'E.g., Stripe, Gumroad, ConvertKit, Substack, Calendly, Notion, Webflow.',
+      edu: 'Your stack should be simple. We’ll plug this into setup steps in ChatGPT.'
+    },
+    {
+      id: 'constraints',
+      label: 'Constraints: time, budget, skills to work around',
+      tag: 'Reality',
+      hint: 'E.g., “5 hours/week, $100/mo budget, basic video skills”.',
+      edu: 'Constraints are design inputs. They help shape a practical plan.'
+    },
+    {
+      id: 'plan90',
+      label: 'Your 90‑day milestones (3 bullets)',
+      tag: 'Roadmap',
+      hint: 'E.g., “Publish 12 videos, 300 email subs, 10 paid audits.”',
+      edu: 'Milestones make progress visible and keep you moving.'
+    }
+  ];
+
+  // ---------- Build form ----------
+  const form = document.getElementById('form');
+
+  function qTemplate(q){
+    const saved = load(q.id) || '';
+    return `
+      <section class="card q" data-id="${q.id}">
+        <div class="qlabel">
+          <span>${q.label}</span>
+          <span class="tag">${q.tag}</span>
+          <span class="info" title="Click for definitions & examples" data-toggle="${q.id}">i</span>
+        </div>
+        <div class="hint">${q.hint}</div>
+        <div class="collapsible" id="edu-${q.id}"><div class="edu"><h4>Why this matters</h4><div class="mini">${q.edu}</div></div></div>
+        <textarea id="${q.id}" placeholder="${q.hint}">${escapeHtml(saved)}</textarea>
+      </section>
+    `;
+  }
+
+  function build(){
+    form.innerHTML = QUESTIONS.map(qTemplate).join('');
+  }
+
+  // ---------- Local storage helpers ----------
+  const KEY = 'remotely_v1';
+  function save(id, val){
+    const all = JSON.parse(localStorage.getItem(KEY) || '{}');
+    all[id] = val; localStorage.setItem(KEY, JSON.stringify(all));
+  }
+  function load(id){
+    const all = JSON.parse(localStorage.getItem(KEY) || '{}');
+    return all[id];
+  }
+  function allValues(){
+    const all = {};
+    QUESTIONS.forEach(q=>{ all[q.id] = (document.getElementById(q.id)?.value || '').trim(); });
+    return all;
+  }
+
+  // ---------- Events ----------
+  document.addEventListener('click', (e)=>{
+    const t = e.target.closest('.info');
+    if(t){
+      const id = t.getAttribute('data-toggle');
+      const el = document.getElementById('edu-'+id);
+      if(el){ el.style.display = (el.style.display === 'block' ? 'none' : 'block'); }
+    }
+  });
+
+  document.addEventListener('input', (e)=>{
+    if(e.target.matches('textarea,input,select')){
+      save(e.target.id, e.target.value);
+    }
+  });
+
+  // Enter → next field; Shift+Enter → newline
+  document.addEventListener('keydown', (e)=>{
+    if(e.target.matches('textarea') && e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      const areas = Array.from(document.querySelectorAll('textarea'));
+      const i = areas.indexOf(e.target);
+      if(i>-1){ (areas[i+1] || areas[i]).focus(); }
+    }
+  });
+
+  // Buttons
+  document.getElementById('resetBtn')?.addEventListener('click', ()=>{
+    if(confirm('Reset all answers?')){
+      localStorage.removeItem(KEY); build();
+    }
+  });
+
+  document.getElementById('copyBtn')?.addEventListener('click', async ()=>{
+    const text = buildExport();
+    try{
+      await navigator.clipboard.writeText(text);
+      setStatus('Copied to clipboard. Paste into ChatGPT.');
+    }catch(err){
+      setStatus('Could not auto‑copy. Selecting text instead…');
+      // Fallback: open a selectable window
+      const w = window.open('', '_blank');
+      w.document.write('<pre>'+escapeHtml(text)+'</pre>');
+      w.document.close();
+    }
+  });
+
+  function setStatus(msg){
+    const s = document.getElementById('copyStatus');
+    s.textContent = msg;
+    setTimeout(()=>{ s.textContent=''; }, 4000);
+  }
+
+  // ---------- Export (Markdown brief + ChatGPT system prompt) ----------
+  function buildExport(){
+    const vals = allValues();
+    const md = [];
+
+    const systemPrompt = (
+`SYSTEM PROMPT (paste this together with the brief):\n\nYou are a senior marketing strategist and operator. Using the brief below, produce: (1) a 90‑day plan with weekly actions, (2) a content calendar for the primary platform, (3) an offer stack with pricing ladder, (4) a simple funnel (Entry → Nurture → Offer) mapped to the user’s stack, and (5) targeted follow‑up questions for any section marked [SKIPPED]. Be concrete and practical. Keep it lean.\n`
+    );
+
+    md.push(systemPrompt);
+    md.push(`# REMOTELY — CREATOR BUSINESS BRIEF`);
+    md.push(`Generated: ${new Date().toLocaleString()}`);
+
+    QUESTIONS.forEach(q=>{
+      const v = (vals[q.id]||'').trim();
+      md.push(`\n## ${q.tag}: ${q.label}`);
+      md.push(v ? v : '[SKIPPED]');
+    });
+
+    // Simple derived preview (non‑AI): Funnel sketch
+    md.push(`\n---\n## Derived Preview — Funnel Sketch (Draft)`);
+    const entry = vals.platforms || vals.pillars ? `Entry: ${vals.platforms?('Primary '+vals.platforms):'Primary platform TBD'} via content on ${vals.pillars||'pillars TBD'}.` : 'Entry: TBD';
+    const lg = vals.leadmagnet ? `Lead Magnet: ${vals.leadmagnet}` : 'Lead Magnet: TBD';
+    const off = vals.offers ? `Offer: ${vals.offers}` : 'Offer: TBD';
+    md.push(`${entry}\n${lg}\n${off}\n`);
+
+    // Follow‑ups list for skipped
+    const skipped = QUESTIONS.filter(q=>!(vals[q.id]||'').trim()).map(q=>`- ${q.tag}: ${q.label}`);
+    if(skipped.length){
+      md.push(`\n## Follow‑ups for ChatGPT`);
+      md.push(skipped.join('\n'));
+    }
+
+    return md.join('\n');
+  }
+
+  // ---------- Utils ----------
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[s]));
+  }
+
+  // Init
+  build();
+  </script>
+</body>
+</html>
